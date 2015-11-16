@@ -16,7 +16,7 @@ import io.silverspoon.bulldog.core.util.BulldogUtil;
  */
 public class LM74TemperatureSensor extends SpiDevice {
    DigitalOutput digitalOutput = null;
-   
+
    public LM74TemperatureSensor(SpiConnection connection, DigitalOutput digitalOutput) {
       super(connection);
       this.digitalOutput = digitalOutput;
