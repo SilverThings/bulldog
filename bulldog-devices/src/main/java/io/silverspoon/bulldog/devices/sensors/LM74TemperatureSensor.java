@@ -14,12 +14,24 @@ import io.silverspoon.bulldog.core.util.BulldogUtil;
  * @author matejperejda
  *
  */
+
+// TODO: Exception handling
 public class LM74TemperatureSensor extends SpiDevice {
-   DigitalOutput digitalOutput = null;
+
+   private DigitalOutput digitalOutput = null;
 
    public LM74TemperatureSensor(SpiConnection connection, DigitalOutput digitalOutput) {
       super(connection);
       this.digitalOutput = digitalOutput;
+   }
+
+   /**
+    * LM74 activation signal. LM74'll be activated when signal goes from 1 to 0.
+    */
+   public void initSensor() {
+      digitalOutput.low();
+      digitalOutput.toggle();
+      BulldogUtil.sleepMs(500);
    }
 
    /**
@@ -33,12 +45,7 @@ public class LM74TemperatureSensor extends SpiDevice {
       float temperature = 0;
       int bitShift;
 
-      // LM74 activation signal
-      // LM74'll be activated when signal goes from 1 to 0
-      digitalOutput.low();
-      digitalOutput.toggle();
-      BulldogUtil.sleepMs(500);
-
+      this.initSensor();
       this.open();
 
       // sending bytes
@@ -55,7 +62,7 @@ public class LM74TemperatureSensor extends SpiDevice {
 
       // negative temperature
       // first binary digit 1 represents negative value
-      // 128 = 10000000
+      // 128 = b10000000
       if (first == 128) {
          int substr = merged - 1;
          short inverted = (short) ~substr;
