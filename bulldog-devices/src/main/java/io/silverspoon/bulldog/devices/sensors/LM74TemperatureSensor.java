@@ -3,6 +3,7 @@ package io.silverspoon.bulldog.devices.sensors;
 import java.io.IOException;
 
 import io.silverspoon.bulldog.core.gpio.DigitalOutput;
+import io.silverspoon.bulldog.core.io.bus.spi.SpiBus;
 import io.silverspoon.bulldog.core.io.bus.spi.SpiConnection;
 import io.silverspoon.bulldog.core.io.bus.spi.SpiDevice;
 import io.silverspoon.bulldog.core.io.bus.spi.SpiMessage;
@@ -14,11 +15,28 @@ import io.silverspoon.bulldog.core.util.BulldogUtil;
  * @author matejperejda
  *
  */
-
-// TODO: Exception handling
 public class LM74TemperatureSensor extends SpiDevice {
 
    private DigitalOutput digitalOutput = null;
+
+   /**
+    * This conctructor is useless. It can be used just if DigitalOutput is initialised.
+    * 
+    * @param connection
+    */
+   private LM74TemperatureSensor(SpiConnection connection) {
+      super(connection);
+   }
+
+   /**
+    * This conctructor is useless. It can be used just if DigitalOutput is initialised.
+    * 
+    * @param bus
+    * @param address
+    */
+   private LM74TemperatureSensor(SpiBus bus, int address) {
+      super(bus, address);
+   }
 
    public LM74TemperatureSensor(SpiConnection connection, DigitalOutput digitalOutput) {
       super(connection);
@@ -39,6 +57,7 @@ public class LM74TemperatureSensor extends SpiDevice {
     * 
     * @see Page 11: http://www.ti.com/lit/ds/symlink/lm74.pdf
     * @return float temperature value
+    * @throws IOException
     **/
    public float readTemperature() throws IOException {
 
@@ -51,36 +70,42 @@ public class LM74TemperatureSensor extends SpiDevice {
       // sending bytes
       byte[] buffer = new byte[] {(byte) 0x00, (byte) 0x00};
 
-      SpiMessage message = this.transfer(buffer);
+      try {
+         SpiMessage message = this.transfer(buffer);
 
-      byte[] rec = message.getReceivedBytes();
+         byte[] rec = message.getReceivedBytes();
 
-      int rec_0 = rec[0] & 0xFF;
+         int rec_0 = rec[0] & 0xFF;
 
-      int merged = (((BulldogUtil.getUnsignedByte(rec[0]) << 8)) | BulldogUtil.getUnsignedByte(rec[1]));
-      int first = rec_0 & Integer.parseInt("80", 16);
+         int merged = (((BulldogUtil.getUnsignedByte(rec[0]) << 8)) | BulldogUtil.getUnsignedByte(rec[1]));
+         int first = rec_0 & Integer.parseInt("80", 16);
 
-      // negative temperature
-      // first binary digit 1 represents negative value
-      // 128 = b10000000
-      if (first == 128) {
-         int substr = merged - 1;
-         short inverted = (short) ~substr;
-         bitShift = inverted >> 3;
-         temperature = (float) (bitShift * 0.0625 * -1f);
+         // negative temperature
+         // first binary digit 1 represents negative value
+         // 128 = b10000000
+         if (first == 128) {
+            int substr = merged - 1;
+            short inverted = (short) ~substr;
+            bitShift = inverted >> 3;
+            temperature = (float) (bitShift * 0.0625 * -1f);
+         }
+         // positive temperature
+         else {
+            bitShift = merged >> 3;
+            temperature = (float) (bitShift * 0.0625);
+         }
+
+         // chip shutdown
+         buffer = new byte[] {(byte) 0xFF};
+
+         this.transfer(buffer);
+
+         return temperature;
+      } catch (IOException e) {
+         throw new IOException("Something went wrong! SpiMessage was not transfered.");
+      } finally {
+         this.close();
       }
-      // positive temperature
-      else {
-         bitShift = merged >> 3;
-         temperature = (float) (bitShift * 0.0625);
-      }
-
-      // chip shutdown
-      buffer = new byte[] {(byte) 0xFF};
-      this.transfer(buffer);
-      this.close();
-
-      return temperature;
    }
 
 }
