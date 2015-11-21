@@ -20,7 +20,7 @@ public class LM74TemperatureSensor extends SpiDevice {
    private DigitalOutput digitalOutput = null;
 
    /**
-    * This conctructor is useless. It can be used just if DigitalOutput is initialised.
+    * This constructor is useless. It can be used just if DigitalOutput is initialized.
     * 
     * @param connection
     */
@@ -29,7 +29,7 @@ public class LM74TemperatureSensor extends SpiDevice {
    }
 
    /**
-    * This conctructor is useless. It can be used just if DigitalOutput is initialised.
+    * This constructor is useless. It can be used just if DigitalOutput is initialized.
     * 
     * @param bus
     * @param address
