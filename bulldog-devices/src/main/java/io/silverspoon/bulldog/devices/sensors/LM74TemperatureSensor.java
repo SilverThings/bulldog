@@ -20,7 +20,11 @@ public class LM74TemperatureSensor extends SpiDevice {
    private DigitalOutput digitalOutput = null;
 
    /**
+<<<<<<< HEAD
     * This constructor is disabled. It can be used just if DigitalOutput is initialized.
+=======
+    * This constructor is useless. It can be used just if DigitalOutput is initialized.
+>>>>>>> branch 'devel' of https://github.com/matejperejda/bulldog.git
     * 
     * @param connection
     */
@@ -29,7 +33,11 @@ public class LM74TemperatureSensor extends SpiDevice {
    }
 
    /**
+<<<<<<< HEAD
     * This constructor is disabled. It can be used just if DigitalOutput is initialized.
+=======
+    * This constructor is useless. It can be used just if DigitalOutput is initialized.
+>>>>>>> branch 'devel' of https://github.com/matejperejda/bulldog.git
     * 
     * @param bus
     * @param address
