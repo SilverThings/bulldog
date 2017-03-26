@@ -82,6 +82,7 @@ JNIEXPORT jint JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeEpoll_removeF
 		JNIEnv * env, jclass clazz, jint epollfd, jint fd)
 {
 	int epollCtl = epoll_ctl(epollfd, EPOLL_CTL_DEL, fd, NULL);
+	close(fd);
 	return epollCtl;
 }
 /*
