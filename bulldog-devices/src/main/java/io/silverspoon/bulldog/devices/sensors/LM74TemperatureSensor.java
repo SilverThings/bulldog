@@ -12,7 +12,7 @@ import io.silverspoon.bulldog.core.util.BulldogUtil;
 /**
  * Texas Instruments LM74 temperature sensor implementation.
  * 
- * @author matejperejda
+ * @author <a href="mailto:mat.per.vt@gmail.com">Matej Perejda</a>
  *
  */
 public class LM74TemperatureSensor extends SpiDevice {
