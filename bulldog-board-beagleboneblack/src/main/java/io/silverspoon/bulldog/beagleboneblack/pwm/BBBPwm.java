@@ -1,16 +1,31 @@
-package io.silverspoon.bulldog.beagleboneblack.gpio;
+/*******************************************************************************
+ * Copyright (c) 2016 Silverspoon.io (silverspoon@silverware.io)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
+package io.silverspoon.bulldog.beagleboneblack.pwm;
+
+import io.silverspoon.bulldog.beagleboneblack.devicetree.DeviceTreeCompiler;
+import io.silverspoon.bulldog.beagleboneblack.sysfs.BBBSysFs;
+import io.silverspoon.bulldog.beagleboneblack.sysfs.SysFsPwm;
+import io.silverspoon.bulldog.core.pin.Pin;
+import io.silverspoon.bulldog.core.pwm.AbstractPwm;
+import io.silverspoon.bulldog.core.util.BulldogUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-
-import io.silverspoon.bulldog.beagleboneblack.devicetree.DeviceTreeCompiler;
-import io.silverspoon.bulldog.beagleboneblack.sysfs.BBBSysFs;
-import io.silverspoon.bulldog.beagleboneblack.sysfs.SysFsPwm;
-import io.silverspoon.bulldog.core.gpio.Pin;
-import io.silverspoon.bulldog.core.gpio.base.AbstractPwm;
-import io.silverspoon.bulldog.core.util.BulldogUtil;
 
 public class BBBPwm extends AbstractPwm {
 
@@ -84,7 +99,7 @@ public class BBBPwm extends AbstractPwm {
    }
 
    private String createOverlay(long period, long duty) throws IOException {
-      InputStream stream = this.getClass().getResourceAsStream("/org/bulldog/beagleboneblack/devicetree/resources/pwm.dts.template");
+      InputStream stream = this.getClass().getResourceAsStream("/io/silverspoon/bulldog/beagleboneblack/devicetree/pwm.dts.template");
       String overlay = BulldogUtil.convertStreamToString(stream);
       stream.close();
 

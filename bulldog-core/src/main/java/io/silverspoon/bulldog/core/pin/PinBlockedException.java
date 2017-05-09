@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package io.silverspoon.bulldog.core.gpio;
+package io.silverspoon.bulldog.core.pin;
 
 // TODO: Auto-generated Javadoc
 

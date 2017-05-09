@@ -14,13 +14,14 @@
  * limitations under the License.
  *
  */
-package io.silverspoon.bulldog.core.gpio;
+package io.silverspoon.bulldog.core.pin;
+
+import io.silverspoon.bulldog.core.event.FeatureActivationEventArgs;
+import io.silverspoon.bulldog.core.event.FeatureActivationListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.silverspoon.bulldog.core.gpio.event.FeatureActivationEventArgs;
-import io.silverspoon.bulldog.core.gpio.event.FeatureActivationListener;
 
 /**
  * <p>A pin in libbulldog is solely a management container. It contains

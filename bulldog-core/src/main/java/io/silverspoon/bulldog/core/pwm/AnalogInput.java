@@ -14,11 +14,12 @@
  * limitations under the License.
  *
  */
-package io.silverspoon.bulldog.core.gpio;
+package io.silverspoon.bulldog.core.pwm;
+
+import io.silverspoon.bulldog.core.event.ThresholdListener;
+import io.silverspoon.bulldog.core.pin.PinFeature;
 
 import java.util.concurrent.Future;
-
-import io.silverspoon.bulldog.core.gpio.event.ThresholdListener;
 
 /**
  * This interface specified the operations that can be used on a Pin that is

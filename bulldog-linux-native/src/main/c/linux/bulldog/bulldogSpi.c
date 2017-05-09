@@ -79,12 +79,12 @@ int spiConfig(int fileDescriptor, int mode, int speed, int bitsPerWord, int lsbF
 
 int spiTransfer(int fileDescriptor, unsigned int* txBuffer, unsigned int* rxBuffer, int transferLength, int delay, int speed, int bitsPerWord) {
 	struct spi_ioc_transfer tr = {
-		 tr.tx_buf = (unsigned long)txBuffer,
-		 tr.rx_buf = (unsigned long)rxBuffer,
-		 tr.len = (uint32_t)transferLength,
-		 tr.delay_usecs = (uint16_t)delay,
-		 tr.speed_hz = (uint32_t)speed,
-		 tr.bits_per_word = (uint8_t)bitsPerWord,
+		 tr.tx_buf = (unsigned long) txBuffer,
+		 tr.rx_buf = (unsigned long) rxBuffer,
+		 tr.len = (uint32_t) transferLength,
+		 tr.delay_usecs = (uint16_t) delay,
+		 tr.speed_hz = (uint32_t) speed,
+		 tr.bits_per_word = (uint8_t) bitsPerWord,
 	 };
 
 	 int ret = ioctl(fileDescriptor, SPI_IOC_MESSAGE(1), &tr);

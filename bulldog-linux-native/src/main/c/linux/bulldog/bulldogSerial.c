@@ -124,7 +124,8 @@ int serialOpen(char* portname, int baud, int parity, int blocking, int readTimeo
 }
 
 int serialOpenSimple(char* portname, int baud) {
-	return serialOpen(portname, baud, 0, SERIAL_NO_BLOCK, SERIAL_DEFAULT_TIMEOUT, SERIAL_DEFAULT_DATA_BITS, SERIAL_DEFAULT_STOP_BITS);
+	return serialOpen(portname, baud, 0, SERIAL_NO_BLOCK,
+	    SERIAL_DEFAULT_TIMEOUT, SERIAL_DEFAULT_DATA_BITS, SERIAL_DEFAULT_STOP_BITS);
 }
 
 int serialClose(int fd) {

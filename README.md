@@ -1,17 +1,18 @@
-#Bulldog GPIO Library for Java
+# Bulldog - Java GPIO Library
 
-##Table of Contents
+![Bulldog](https://raw.githubusercontent.com/px3/px3.github.io/master/img/bulldog-logo.png)
+
+## Table of Contents
 - [Summary](#summary)
 - [Usage](#usage)
   - [Maven](#maven)
-  - [Distribution Jar](#distribution-jar)
   - [Example](#example)
 - [Building Bulldog (x86, x86_64)](#building-bulldog-x86-x86_64)
 - [Building Bulldog (ARM)](#building-bulldog-arm)
 - [Continuous Integration](#continuous-integration)
 - [Contribution Guidelines](#contribution-guidelines)
 
-##Summary
+## Summary
 
 Bulldog is a Java library providing Java (IoT) Developers with GPIO and low-level IO capabilities of embedded linux platforms (RaspberryPi, CubieBoard, BeagleBoneBlack).
 
@@ -30,19 +31,19 @@ Bulldog currently supports the following features:
 
 ###Maven
 
-Stable versions are synced with Maven Central. You just need to add a dependency to bulldog board implementation (dependening on the target device):
+Stable versions are synced with Maven Central. You just need to add a dependency to appropriate board implementation and Bulldog will automatically select the correct platform implementation:
 
 ```xml
 <dependencies>
   <dependency>
     <groupId>io.silverspoon</groupId>
-    <artifactId>bulldog-board-${board}</artifactId>
+    <artifactId>bulldog-board-${board-name}</artifactId>
     <version>${version.bulldog}</version>
   </dependency>
 </dependencies>
 ```
 
-With the latest development version (0.2.0-SNAPSHOT) you can put all the board implementations on your classpath and Bulldog will automatically select the correct one according to the platform you are using! To use our development (SNAPSHOT) versions you also need to add the following repository to your settings.xml:
+To use our development (SNAPSHOT) versions you need to add the following repository to your settings.xml:
 
 ```xml
 <repositories>
@@ -55,14 +56,6 @@ With the latest development version (0.2.0-SNAPSHOT) you can put all the board i
   </repository>
 </repositories>
 ```
-
-###Distribution Jar
-
-If you don't want to use Maven, you can download our distribution (uber-jar) from [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22io.silverspoon%22%20AND%20a%3A%22bulldog-distro%22).
-Afterward, just compile & execute your Java code from command line:
-
-    javac -cp bulldog-distro-0.2.0-<board>.jar:. BulldogLED.java
-    java -cp bulldog-distro-0.2.0-<board>.jar:. BulldogLED
 
 ###Example
 
@@ -77,7 +70,7 @@ The following steps can all be performed on your target device (e.g. RaspberryPi
   <dependency>
     <groupId>io.silverspoon</groupId>
     <artifactId>bulldog-board-raspberrypi</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
   </dependency>
 </dependencies>
 ```
@@ -132,8 +125,9 @@ mvn exec:java
 ```
 
 - If you have done everything well, your LED diode should come on, and after 1 second go off again.
+- Please note that the JVM must be started with root privileges or user need to be in appropriate group for ```/dev/mem``` access e.g. _kmem_
 
-_Note: For more see bulldog-examples project._
+_Note: For more see [bulldog-examples](https://github.com/px3/bulldog-examples) project._
 
 ##Building Bulldog (x86, x86_64)
 

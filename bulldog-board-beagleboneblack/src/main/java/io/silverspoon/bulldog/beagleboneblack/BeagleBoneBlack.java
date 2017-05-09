@@ -1,25 +1,40 @@
+/*******************************************************************************
+ * Copyright (c) 2016 Silverspoon.io (silverspoon@silverware.io)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
 package io.silverspoon.bulldog.beagleboneblack;
 
-import java.io.File;
-
-import io.silverspoon.bulldog.beagleboneblack.gpio.BBBAnalogInput;
 import io.silverspoon.bulldog.beagleboneblack.gpio.BBBDigitalInput;
 import io.silverspoon.bulldog.beagleboneblack.gpio.BBBDigitalOutput;
 import io.silverspoon.bulldog.beagleboneblack.gpio.BBBEmmc;
 import io.silverspoon.bulldog.beagleboneblack.gpio.BBBHdmi;
-import io.silverspoon.bulldog.beagleboneblack.gpio.BBBPwm;
 import io.silverspoon.bulldog.beagleboneblack.io.BBBUartPort;
+import io.silverspoon.bulldog.beagleboneblack.pwm.BBBAnalogInput;
+import io.silverspoon.bulldog.beagleboneblack.pwm.BBBPwm;
 import io.silverspoon.bulldog.beagleboneblack.sysfs.BBBSysFs;
-import io.silverspoon.bulldog.core.gpio.Pin;
+import io.silverspoon.bulldog.core.event.FeatureActivationEventArgs;
+import io.silverspoon.bulldog.core.event.FeatureActivationListener;
 import io.silverspoon.bulldog.core.gpio.base.DigitalIOFeature;
-import io.silverspoon.bulldog.core.gpio.event.FeatureActivationEventArgs;
-import io.silverspoon.bulldog.core.gpio.event.FeatureActivationListener;
+import io.silverspoon.bulldog.core.pin.Pin;
 import io.silverspoon.bulldog.core.platform.AbstractBoard;
 import io.silverspoon.bulldog.core.util.BulldogUtil;
 import io.silverspoon.bulldog.linux.gpio.LinuxDigitalInput;
 import io.silverspoon.bulldog.linux.gpio.LinuxDigitalOutput;
 import io.silverspoon.bulldog.linux.io.LinuxI2cBus;
 import io.silverspoon.bulldog.linux.io.LinuxSpiBus;
+
+import java.io.File;
 
 public class BeagleBoneBlack extends AbstractBoard implements FeatureActivationListener {
 

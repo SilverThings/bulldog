@@ -16,12 +16,13 @@
  */
 package io.silverspoon.bulldog.core.gpio;
 
-import java.util.List;
-
 import io.silverspoon.bulldog.core.Edge;
 import io.silverspoon.bulldog.core.Signal;
-import io.silverspoon.bulldog.core.gpio.event.InterruptEventArgs;
-import io.silverspoon.bulldog.core.gpio.event.InterruptListener;
+import io.silverspoon.bulldog.core.event.InterruptEventArgs;
+import io.silverspoon.bulldog.core.event.InterruptListener;
+import io.silverspoon.bulldog.core.pin.PinFeature;
+
+import java.util.List;
 
 /**
  * This interface specified the operations that can be used on a Pin that is

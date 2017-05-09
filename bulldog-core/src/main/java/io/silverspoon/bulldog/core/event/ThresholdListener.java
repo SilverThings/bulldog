@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package io.silverspoon.bulldog.core.gpio.event;
+package io.silverspoon.bulldog.core.event;
 
 /**
  * The listener interface for receiving threshold events.

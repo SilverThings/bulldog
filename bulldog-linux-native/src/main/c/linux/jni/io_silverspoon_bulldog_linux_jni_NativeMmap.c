@@ -10,15 +10,18 @@
  */
 JNIEXPORT jlong JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_createMap
   (JNIEnv * env, jobject clazz, jlong address, jlong length, jint prot, jint flags, jint fileDescriptor, jlong offset) {
-	int * addrPointer = (int*)(intptr_t)address;
+	int *addrPointer = (int *)(intptr_t)address;
 	void *retval = NULL;
 
+
 	retval = mmap(addrPointer, length, prot, flags, fileDescriptor, offset);
+	unsigned int *modified_retval = (unsigned int *) retval;
+	printf("%x, %x\n", modified_retval, retval);
 	if (retval == MAP_FAILED) {
 	   perror("mmap");
-	   return (jlong)(intptr_t)0x0;
+	   return (jlong)(intptr_t) 0x0;
 	}
-	return (jlong)(intptr_t)retval;
+	return (jlong) modified_retval;
 }
 
 /*
@@ -28,8 +31,8 @@ JNIEXPORT jlong JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_createM
  */
 JNIEXPORT jint JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_deleteMap
   (JNIEnv * env, jobject clazz, jlong address, jlong length) {
-	int * addrPointer = (int*)(intptr_t)address;
-	return (jint)(intptr_t)munmap(addrPointer, length);
+	int *addrPointer = (int *)(intptr_t) address;
+	return (jint)(intptr_t) munmap(addrPointer, length);
 }
 
 /*
@@ -39,7 +42,7 @@ JNIEXPORT jint JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_deleteMa
  */
 JNIEXPORT void JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_setIntValueAt
   (JNIEnv * env, jobject clazz, jlong address, jint value) {
-	int * ptr = (int *)(intptr_t)address;
+	int *ptr = (int *) address;
 	*ptr = value;
 }
 
@@ -50,7 +53,7 @@ JNIEXPORT void JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_setIntVa
  */
 JNIEXPORT void JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_setShortValueAt
   (JNIEnv * env, jobject clazz, jlong address, jshort value) {
-	short * ptr = (short *)(intptr_t)address;
+	short *ptr = (short *)(intptr_t) address;
 	*ptr = value;
 }
 
@@ -62,7 +65,7 @@ JNIEXPORT void JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_setShort
  */
 JNIEXPORT void JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_setLongValueAt
   (JNIEnv * env, jobject clazz, jlong address, jlong value) {
-	long * ptr = (long *)(intptr_t)address;
+	long *ptr = (long *)(intptr_t) address;
 	*ptr = value;
 }
 
@@ -74,7 +77,7 @@ JNIEXPORT void JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_setLongV
  */
 JNIEXPORT void JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_setByteValueAt
   (JNIEnv * env, jobject clazz, jlong address, jbyte value) {
-	char * ptr = (char *)(intptr_t)address;
+	char * ptr = (char *)(intptr_t) address;
 	*ptr = value;
 }
 
@@ -86,7 +89,7 @@ JNIEXPORT void JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_setByteV
  */
 JNIEXPORT jint JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_getIntValueAt
   (JNIEnv * env, jobject clazz, jlong address) {
-	int * ptr = (int *)(intptr_t)address;
+	int * ptr = (int *)(intptr_t) address;
 	return (jint)(*ptr);
 }
 
@@ -97,7 +100,7 @@ JNIEXPORT jint JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_getIntVa
  */
 JNIEXPORT jbyte JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_getByteValueAt
   (JNIEnv * env, jobject clazz, jlong address) {
-	char * ptr = (char *)(intptr_t)address;
+	char *ptr = (char *)(intptr_t) address;
 	return (jbyte)(*ptr);
 }
 
@@ -108,7 +111,7 @@ JNIEXPORT jbyte JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_getByte
  */
 JNIEXPORT jshort JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_getShortValueAt
   (JNIEnv * env, jobject clazz, jlong address) {
-	short * ptr = (short *)(intptr_t)address;
+	short *ptr = (short *)(intptr_t) address;
 	return (jshort)(*ptr);
 }
 
@@ -119,7 +122,7 @@ JNIEXPORT jshort JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_getSho
  */
 JNIEXPORT jlong JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeMmap_getLongValueAt
   (JNIEnv * env, jobject clazz, jlong address) {
-	long * ptr = (long *)(intptr_t)address;
+	long *ptr = (long *)(intptr_t) address;
 	return (jlong)(*ptr);
 }
 

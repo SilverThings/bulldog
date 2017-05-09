@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include "io_silverspoon_bulldog_linux_jni_NativeEpoll.h"
 
-static int openWait(const char* filepath) {
+static int openWait(const char *filepath) {
 	int fd = -1;
 	while(fd <= 0) {
 		fd = open(filepath, O_RDONLY);
@@ -23,7 +23,7 @@ static int openWait(const char* filepath) {
 	return -1;
 }
 
-static int readData(int fd, char* buffer, int bufferSize) {
+static int readData(int fd, char *buffer, int bufferSize) {
 	lseek(fd, 0, 0);
 	int size = read(fd, buffer, bufferSize);
 
@@ -92,7 +92,7 @@ JNIEXPORT jint JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeEpoll_removeF
 JNIEXPORT jobjectArray JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeEpoll_waitForInterrupt(
 		JNIEnv * env, jclass clazz, jint epollfd) {
 
-	struct epoll_event* epoll_events;
+	struct epoll_event *epoll_events;
 	int epollReturn = 0;
 	int pollSize = 0;
 	int arrayIndex = 0;
@@ -120,7 +120,7 @@ JNIEXPORT jobjectArray JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeEpoll
 			fileData = (*env)->NewByteArray(env, 0);
 		} else {
 			fileData = (*env)->NewByteArray(env, bytesRead);
-			jbyte* bytes = (*env)->GetByteArrayElements(env, fileData, NULL);
+			jbyte *bytes = (*env)->GetByteArrayElements(env, fileData, NULL);
 			memcpy(bytes, buffer, bytesRead);
 			(*env)->SetByteArrayRegion(env, fileData, 0, bytesRead, bytes);
 		}
@@ -150,14 +150,14 @@ JNIEXPORT void JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeEpoll_stopWai
 
 	 // make read-end non-blocking
 	 int flags = fcntl(read_pipe, F_GETFL, 0);
-	 fcntl(write_pipe, F_SETFL, flags|O_NONBLOCK);
+	 fcntl(write_pipe, F_SETFL, flags | O_NONBLOCK);
 
 	 // add the read end to the epoll
 	 ev.events = EPOLLIN;
 	 ev.data.fd = read_pipe;
 	 epoll_ctl(epollfd, EPOLL_CTL_ADD, read_pipe, &ev);
 
-	 char* terminate = "terminate";
+	 char *terminate = "terminate";
 	 write(write_pipe, terminate, 1);
 }
 

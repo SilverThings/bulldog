@@ -45,16 +45,17 @@ JNIEXPORT jint JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeSpi_spiClose
  */
 JNIEXPORT jint JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeSpi_spiTransfer
   (JNIEnv * env , jclass clazz, jint fileDescriptor, jobject txBuffer, jobject rxBuffer, jint transferLength, jint delay, jint speed, jint bitsPerWord) {
-	unsigned int* pTx = NULL;
-	unsigned int* pRx = NULL;
+	unsigned int *pTx = NULL;
+	unsigned int *pRx = NULL;
 
 	if(txBuffer != NULL) {
-		pTx = (unsigned int*) (*env)->GetDirectBufferAddress(env, txBuffer);
+		pTx = (unsigned int *) (*env)->GetDirectBufferAddress(env, txBuffer);
 	}
 
 	if(rxBuffer != NULL) {
-		pRx = (unsigned int*) (*env)->GetDirectBufferAddress(env, rxBuffer);
+		pRx = (unsigned int *) (*env)->GetDirectBufferAddress(env, rxBuffer);
 	}
 
-	return spiTransfer((int)fileDescriptor, (unsigned int*)pTx, (unsigned int*)pTx, (int)transferLength, (int)delay, (int)speed, (int)bitsPerWord);
+	return spiTransfer((int) fileDescriptor, (unsigned int *) pTx, (unsigned int *) pTx, (int) transferLength,
+	    (int) delay, (int) speed, (int) bitsPerWord);
 }

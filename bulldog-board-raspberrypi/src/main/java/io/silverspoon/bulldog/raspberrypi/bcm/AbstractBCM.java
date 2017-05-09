@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright (c) 2016 Silverspoon.io (silverspoon@silverware.io)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
 package io.silverspoon.bulldog.raspberrypi.bcm;
 
 import io.silverspoon.bulldog.linux.io.mmap.MemoryMap;
@@ -33,6 +48,10 @@ public abstract class AbstractBCM {
    public abstract int getGPIOSet();
 
    public abstract int getGPIOClear();
+
+   public abstract int getGPIORead();
+
+   public abstract int getRegisterSize();
 
    public MemoryMap getGpioMemory() {
       if (gpioMemory == null) {
@@ -71,21 +90,21 @@ public abstract class AbstractBCM {
    }
 
    public void configureAsInput(int gpio) {
-      long address = (gpio / 10) * 4;
+      long address = (gpio / 10) * getRegisterSize();
       int value = this.getGpioMemory().getIntValueAt(address);
       value &= ~(7 << getGpioRegisterOffset(gpio));
       this.getGpioMemory().setIntValue(address, value);
    }
 
    public void configureAsOutput(int gpio) {
-      long address = (gpio / 10) * 4;
+      long address = (gpio / 10) * getRegisterSize();
       int value = this.getGpioMemory().getIntValueAt(address);
       value |= (1 << getGpioRegisterOffset(gpio));
       this.getGpioMemory().setIntValue(address, value);
    }
 
    public void configureAlternateFunction(int gpio, int alt) {
-      long address = (gpio / 10) * 4;
+      long address = (gpio / 10) * getRegisterSize();
       int value = this.getGpioMemory().getIntValueAt(address);
       value |= (((alt) <= 3 ? (alt) + 4 : (alt) == 4 ? 3 : 2) << (gpio % 10) * 3);
       this.getGpioMemory().setIntValue(address, value);

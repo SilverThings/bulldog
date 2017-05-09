@@ -58,7 +58,7 @@ JNIEXPORT jbyte JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeSerial_seria
  */
 JNIEXPORT jint JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeSerial_serialReadBuffer
   (JNIEnv * env, jclass clazz, jint fileDescriptor, jobject buffer, jint bufferSize) {
-	char* pBuffer = (char*) (*env)->GetDirectBufferAddress(env, buffer);
+	char *pBuffer = (char*) (*env)->GetDirectBufferAddress(env, buffer);
 	return serialReadBuffer(fileDescriptor, pBuffer, bufferSize);
 }
 
@@ -89,7 +89,7 @@ JNIEXPORT jint JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeSerial_serial
  */
 JNIEXPORT jint JNICALL Java_io_silverspoon_bulldog_linux_jni_NativeSerial_serialWriteBuffer
   (JNIEnv * env, jclass clazz, jint fileDescriptor, jobject buffer, jint bufferSize) {
-	char* pBuffer = (char*) (*env)->GetDirectBufferAddress(env, buffer);
+	char *pBuffer = (char*) (*env)->GetDirectBufferAddress(env, buffer);
 	return serialWriteBuffer(fileDescriptor, pBuffer);
 }
 

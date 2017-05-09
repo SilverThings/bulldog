@@ -1,4 +1,22 @@
+/*******************************************************************************
+ * Copyright (c) 2016 Silverspoon.io (silverspoon@silverware.io)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
 package io.silverspoon.bulldog.beagleboneblack.sysfs;
+
+import io.silverspoon.bulldog.core.util.BulldogUtil;
+import io.silverspoon.bulldog.linux.sysfs.SysFs;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,21 +24,25 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.silverspoon.bulldog.core.util.BulldogUtil;
-import io.silverspoon.bulldog.linux.sysfs.SysFs;
-
 public class BBBSysFs extends SysFs {
 
    private static final int WAIT_TIMEOUT_MS = 5000;
 
-   private String SYSFS_DEVICES_PATH = "/sys/devices";
+   private static final String[] SYSFS_DEVICES_SEARCH_PATH = {
+         "/sys/devices",
+         "/sys/devices/platform"
+   };
+
+   private static final String SEARCH_PATTERN = "bone_capemgr";
+
+   private String SYSFS_DEVICES_PATH = findValidPath(SYSFS_DEVICES_SEARCH_PATH, SEARCH_PATTERN);
 
    public BBBSysFs() {
 
    }
 
    public File getCapeManager() {
-      return getFilesInPath(SYSFS_DEVICES_PATH, "bone_capemgr")[0];
+      return getFilesInPath(SYSFS_DEVICES_PATH, SEARCH_PATTERN)[0];
    }
 
    public File getCapeManagerSlots() {

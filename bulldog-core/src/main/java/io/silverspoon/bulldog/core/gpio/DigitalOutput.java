@@ -17,6 +17,7 @@
 package io.silverspoon.bulldog.core.gpio;
 
 import io.silverspoon.bulldog.core.Signal;
+import io.silverspoon.bulldog.core.pin.PinFeature;
 
 /**
  * This interface specified the operations that can be used on a Pin that is
