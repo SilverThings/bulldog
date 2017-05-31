@@ -1,0 +1,50 @@
+/*
+ * Copyright (C) 2013 CircuitCo
+ * Copyright (C) 2013 Texas Instruments
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "ti,beaglebone", "ti,beaglebone-black";
+
+	/* identification */
+	part-number = "bd_pwm_${pin_name}";
+	version = "${version}";
+
+	/* state the resources this cape uses */
+	exclusive-use =
+		/* the pin header uses */
+		"${pin_name_dotted}",
+		/* the hardware IP uses */
+		"${pwm_name}${qualifier}";
+
+	fragment@0 {
+		target = <&am33xx_pinmux>;
+		__overlay__ {
+			pwm_${pin_name}: pinmux_pwm_${pin_name}_pins {
+				pinctrl-single,pins = <${pin_address}  ${mux_mode}>;
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&ocp>;
+		__overlay__ {
+			pwm_test_${pin_name} {
+				compatible	= "pwm_test";
+				pwms 		= <&${pwm_name} ${channel} ${period} ${polarity}>;
+				pwm-names 	= "PWM_${pin_name}";
+			    pinctrl-names	= "default";
+			    pinctrl-0	= <&pwm_${pin_name}>;
+				enabled		= <0>;
+				duty		= <0>;
+				status 		= "okay";
+			};
+		};
+	};
+};
