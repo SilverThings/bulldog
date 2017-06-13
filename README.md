@@ -27,9 +27,9 @@ Bulldog currently supports the following features:
  - All UARTs (including dynamic setup via capemgr on request)
  - A few devices: Simple button API, Incremental Rotary Encoder, Servos, LCD, ...
 
-##Usage
+## Usage
 
-###Maven
+### Maven
 
 Stable versions are synced with Maven Central. You just need to add a dependency to appropriate board implementation and Bulldog will automatically select the correct platform implementation:
 
@@ -57,7 +57,7 @@ To use our development (SNAPSHOT) versions you need to add the following reposit
 </repositories>
 ```
 
-###Example
+### Example
 
 The following steps can all be performed on your target device (e.g. RaspberryPi).
 
@@ -129,9 +129,9 @@ mvn exec:java
 
 _Note: For more see [bulldog-examples](https://github.com/px3/bulldog-examples) project._
 
-##Building Bulldog (x86, x86_64)
+## Building Bulldog (x86, x86_64)
 
-###Prerequisites
+### Prerequisites
 
 - ARM C/C++ Cross Compiler (4.8+)
 - Maven 3+
@@ -145,7 +145,7 @@ Ubuntu (13.04+)
 
     sudo apt-get install gcc-4.8-arm-linux-gnueabihf
 
-###Build
+### Build
 
 Fedora (default)
 
@@ -155,9 +155,9 @@ Ubuntu - need to overide compiler/linker binary:
 
     mvn clean install -Dcompiler.exec=arm-linux-gnueabihf-gcc-4.8 -Dlinker.exec=arm-linux-gnueabihf-ld
 
-##Building Bulldog (ARM)
+## Building Bulldog (ARM)
 
-###Prerequisites
+### Prerequisites
 
 - ARM C/C++ Compiler (4.8+)
 - Maven 3+
@@ -166,15 +166,15 @@ Raspbian
 
     sudo apt-get install gcc-4.8
 
-###Build
+### Build
 
     mvn clean install -Pnative-compile
 
-##Continuous Integration
+## Continuous Integration
 
 CI server hosted on Travis-ci.org: [![Build Status](https://travis-ci.org/px3/bulldog.svg?branch=master)](https://travis-ci.org/px3/bulldog)
 
-##Contribution Guidelines
+## Contribution Guidelines
 
 - If you find a bug, or have a feature request you think we should consider, please report it [here](https://github.com/px3/bulldog/issues).
 - We use [gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) as a development workflow, so If you want to contribute to our code base create your own fork & send a pull request to the devel branch or ask to join our community to be able to commit directly to devel branch.
