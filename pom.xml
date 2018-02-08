@@ -87,6 +87,7 @@
     <module>bulldog-board-cubieboard</module>
     <module>bulldog-board-raspberrypi</module>
     <module>bulldog-board-beagleboneblack</module>
+    <module>bulldog-board-minnowboard</module>
   </modules>
   <dependencyManagement>
     <dependencies>
