@@ -14,6 +14,7 @@
     <module>bulldog-linux-native-cubieboard</module>
     <module>bulldog-linux-native-raspberrypi</module>
     <module>bulldog-linux-native-beagleboneblack</module>
+    <module>bulldog-linux-native-minnowboard</module>
   </modules>
   <name>${project.groupId}:${project.artifactId}</name>
   <properties>
