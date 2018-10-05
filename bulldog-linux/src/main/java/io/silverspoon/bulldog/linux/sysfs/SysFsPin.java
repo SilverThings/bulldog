@@ -54,7 +54,7 @@ public class SysFsPin {
 
    public void exportIfNecessary() {
       if (!isExported()) {
-         echoToFile(getPinString(), Paths.get(directory, "/export"));
+         echoToFile(getPinString(), exportPath);
 
          long startTime = System.currentTimeMillis();
          while (!Files.exists(getValueFilePath())) {
@@ -68,7 +68,7 @@ public class SysFsPin {
 
    public void unexport() {
       if (isExported()) {
-         echoToFile(getPinString(), Paths.get(directory, "/unexport"));
+         echoToFile(getPinString(), unexportPath);
       }
    }
 
@@ -106,7 +106,7 @@ public class SysFsPin {
    }
 
    public void setValue(Signal signal) {
-      echoToFile(String.valueOf(signal.getNumericValue()), getPinDirectory());
+      echoToFile(String.valueOf(signal.getNumericValue()), getValueFilePath());
    }
 
    private void echoToFile(String value, Path file) {
